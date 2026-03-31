@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "RAION Genspark Hub",
+  "version": "1.0.2",
+  "description": "AI 채팅 & 이미지 생성 워크플로우 통합 도구",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "tabs",
+    "storage",
+    "scripting",
+    "downloads",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://www.genspark.ai/*",
+    "*://dnflcjpjzqmrybtcleqy.supabase.co/*",
+    "*://raw.githubusercontent.com/*"
+  ],
+  "action": {
+    "default_title": "RAION Genspark Hub",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.genspark.ai/*"],
+      "js": ["content-image.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": ["*://www.genspark.ai/*"],
+      "js": ["content-chat.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "chat/chat-panel.html",
+        "chat/chat-panel.css",
+        "chat/chat-panel.js",
+        "image/image-panel.html",
+        "image/image-panel.css",
+        "image/image-panel.js",
+        "data/default-projects.json"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

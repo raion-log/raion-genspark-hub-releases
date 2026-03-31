@@ -1,0 +1,274 @@
+<!-- RAION Genspark Hub - 이미지 생성 패널 (프래그먼트) -->
+
+<!-- 이미지 패널 헤더 -->
+<header class="sub-panel-header">
+  <button class="btn-back" id="image-back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    홈
+  </button>
+  <div class="sub-panel-title">
+    <span class="brand-raion">RAION</span>
+    <span class="brand-master">AI 이미지 생성</span>
+  </div>
+  <div class="header-links">
+    <a href="https://www.genspark.ai/ai_image" target="_blank" class="genspark-link" title="Genspark AI Image 열기">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+      genspark.ai/ai_image
+    </a>
+  </div>
+</header>
+
+<!-- 메인 컨텐츠 -->
+<div class="sidebar-content">
+  <!-- 프롬프트 입력 섹션 -->
+  <section class="prompt-input-section">
+    <label class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      <span>프롬프트 리스트</span>
+    </label>
+    <textarea
+      id="prompt-list"
+      class="prompt-textarea"
+      placeholder="첫 번째 이미지 프롬프트&#10;두 번째 이미지 프롬프트&#10;세 번째 이미지 프롬프트&#10;&#10;각 줄 = 각 이미지의 프롬프트&#10;줄 수만큼 이미지가 생성됩니다."
+    ></textarea>
+    <div class="prompt-hint" id="prompt-hint">
+      <span class="hint-icon">💡</span>
+      <span id="prompt-count">프롬프트 0줄 = 이미지 0개 생성</span>
+    </div>
+  </section>
+
+  <!-- 배치 미리보기 -->
+  <section class="batch-preview-section" id="batch-preview-section">
+    <div class="batch-preview-header">
+      <span class="batch-title">배치 미리보기</span>
+      <span class="batch-info" id="batch-info">0개 배치</span>
+    </div>
+    <div class="batch-list" id="batch-list">
+      <div class="batch-empty">프롬프트를 입력하세요</div>
+    </div>
+  </section>
+
+  <!-- 설정 섹션 -->
+  <section class="settings-section">
+    <button class="settings-toggle" id="settings-toggle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v6m0 6v6m5.66-13.66l-4.24 4.24m-2.83 2.83l-4.24 4.24M23 12h-6m-6 0H1m18.66 5.66l-4.24-4.24m-2.83-2.83l-4.24-4.24"/>
+      </svg>
+      <span>설정</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+
+    <div class="settings-content" id="settings-content" style="display: none;">
+      <div class="setting-item">
+        <label>배치 크기 (한 번에 처리할 프롬프트 수)</label>
+        <div class="number-control">
+          <button class="btn-minus" data-target="batch-size">−</button>
+          <input type="number" id="batch-size" value="5" min="1" max="6">
+          <button class="btn-plus" data-target="batch-size">+</button>
+        </div>
+        <small style="color: var(--text-tertiary); font-size: 11px; display: block; margin-top: 4px;">
+          1-6개 (기본값: 5개)
+        </small>
+      </div>
+
+      <div class="setting-item">
+        <label>파일 시작 번호</label>
+        <div class="number-control">
+          <button class="btn-minus" data-target="start-number">−</button>
+          <input type="number" id="start-number" value="1" min="1" max="9999">
+          <button class="btn-plus" data-target="start-number">+</button>
+        </div>
+        <small style="color: var(--text-tertiary); font-size: 11px; display: block; margin-top: 4px;">
+          다운로드 파일명과 프롬프트 번호의 시작점 (기본값: 1)
+        </small>
+      </div>
+
+      <div class="setting-item">
+        <label>이미지 생성 모델</label>
+        <select id="model-select" class="setting-select">
+          <option value="Nano Banana Pro" selected>Nano Banana Pro (기본)</option>
+          <option value="Nano Banana 2">Nano Banana 2</option>
+          <option value="Bytedance Seedream v5 Lite">Bytedance Seedream v5 Lite</option>
+          <option value="Flux 2">Flux 2</option>
+          <option value="Flux 2 Pro">Flux 2 Pro</option>
+          <option value="Z-Image Turbo">Z-Image Turbo</option>
+          <option value="GPT Image 1.5">GPT Image 1.5</option>
+          <option value="Recraft V3">Recraft V3</option>
+          <option value="Ideogram V3">Ideogram V3</option>
+          <option value="Qwen Image 2">Qwen Image 2</option>
+          <option value="Recraft Clarity Upscale">Recraft Clarity Upscale</option>
+          <option value="Bria Background Remover">Bria Background Remover</option>
+          <option value="Text Removal">Text Removal</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label>이미지 크기</label>
+        <select id="image-size-select" class="setting-select">
+          <option value="자동" selected>자동 (기본)</option>
+          <option value="1K">1K</option>
+          <option value="2K">2K</option>
+          <option value="4K">4K (Pro 이상)</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label>이미지 비율</label>
+        <select id="aspect-ratio-select" class="setting-select">
+          <option value="자동 크기">자동 크기</option>
+          <option value="21:9">21:9 (울트라와이드)</option>
+          <option value="2:1">2:1</option>
+          <option value="16:9" selected>16:9 (기본)</option>
+          <option value="3:2">3:2</option>
+          <option value="4:3">4:3</option>
+          <option value="1:1">1:1 (정사각형)</option>
+          <option value="3:4">3:4</option>
+          <option value="2:3">2:3</option>
+          <option value="9:16">9:16 (세로)</option>
+          <option value="1:2">1:2</option>
+          <option value="9:21">9:21</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label>자동 프롬프트</label>
+        <select id="auto-prompt-select" class="setting-select">
+          <option value="on">켜기</option>
+          <option value="off" selected>끄기 (기본)</option>
+        </select>
+        <small style="color: var(--text-tertiary); font-size: 11px; display: block; margin-top: 4px;">
+          끄기 시 입력한 프롬프트가 별도 보정 없이 그대로 적용됩니다.
+        </small>
+      </div>
+
+      <div class="setting-item">
+        <label>다운로드 방식</label>
+        <select id="download-method-select" class="setting-select">
+          <option value="local" selected>PC에 바로 저장 (기본)</option>
+          <option value="ai-drive">AI 드라이브 저장</option>
+        </select>
+        <small style="color: var(--text-tertiary); font-size: 11px; display: block; margin-top: 4px;">
+          PC에 바로 저장 시 다운로드 폴더에 YYMMDD_HHMM/1.png 형식으로 저장
+        </small>
+      </div>
+
+      <div class="setting-item">
+        <label>이미지 생성 최대 대기 (초)</label>
+        <div class="number-control">
+          <button class="btn-minus" data-target="generation-wait">−</button>
+          <input type="number" id="generation-wait" value="600" min="30" max="1000">
+          <button class="btn-plus" data-target="generation-wait">+</button>
+        </div>
+        <small style="color: var(--text-tertiary); font-size: 11px; display: block; margin-top: 4px;">
+          배치당 최대 대기 시간 · 완료 시 자동 진행
+        </small>
+      </div>
+    </div>
+  </section>
+
+  <!-- 진행 상황 큐 -->
+  <section class="queue-section" id="queue-section">
+    <div class="queue-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      <span>진행 상황</span>
+    </div>
+    <div class="queue-list" id="queue-list">
+      <div class="queue-empty">대기 중인 작업이 없습니다</div>
+    </div>
+  </section>
+</div>
+
+<!-- 하단 고정 액션 -->
+<footer class="sidebar-footer">
+  <div class="status-display" id="status-display">
+    <span class="status-text" id="status-text">준비됨</span>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+  <div class="action-buttons">
+    <button class="btn-start" id="start-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      시작
+    </button>
+    <div class="error-actions" id="error-actions" style="display: none;">
+      <div class="error-action-item">
+        <button class="btn-retry" id="retry-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 4v6h6"/>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+          재시도
+        </button>
+        <span class="error-action-desc">실패 배치 다시 시도</span>
+      </div>
+      <div class="error-action-item">
+        <button class="btn-skip" id="skip-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 4 15 12 5 20 5 4"/>
+            <line x1="19" y1="5" x2="19" y2="19"/>
+          </svg>
+          건너뛰기
+        </button>
+        <span class="error-action-desc">다음 배치부터 계속</span>
+      </div>
+      <div class="error-action-item">
+        <button class="btn-download" id="download-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          다운로드
+        </button>
+        <span class="error-action-desc">생성된 이미지 저장</span>
+      </div>
+    </div>
+    <button class="btn-stop" id="stop-btn" disabled>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <rect x="6" y="6" width="12" height="12"/>
+      </svg>
+      중지
+    </button>
+  </div>
+</footer>
+
+<!-- Rate Limit 팝업 모달 -->
+<div class="rate-limit-modal" id="rate-limit-modal">
+  <div class="rate-limit-content">
+    <div class="rate-limit-icon">⚠️</div>
+    <h3 class="rate-limit-title">이미지 생성 제한에 도달했어요</h3>
+    <p class="rate-limit-desc">잠시 후 다시 시도해주세요.</p>
+    <p class="rate-limit-progress" id="rate-limit-progress"></p>
+    <button class="rate-limit-close" id="rate-limit-close">확인</button>
+  </div>
+</div>
+
+<!-- 실패 목록 팝업 모달 -->
+<div class="rate-limit-modal" id="failure-modal">
+  <div class="rate-limit-content" style="max-height: 80vh; overflow-y: auto;">
+    <div class="rate-limit-icon">⚠️</div>
+    <h3 class="rate-limit-title">일부 이미지 생성에 문제가 있었어요</h3>
+    <div id="failure-list" style="text-align: left; margin: 12px 0; font-size: 13px; color: var(--text-secondary); line-height: 1.8;"></div>
+    <div id="failure-tips" style="text-align: left; margin: 12px 0; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 12px; color: var(--text-tertiary); line-height: 1.6;"></div>
+    <button class="rate-limit-close" id="failure-close">확인</button>
+  </div>
+</div>

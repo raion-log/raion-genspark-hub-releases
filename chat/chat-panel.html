@@ -1,0 +1,164 @@
+<!-- RAION Genspark Hub - AI 채팅 어시스턴트 패널 (프래그먼트) -->
+
+<!-- 채팅 패널 헤더 -->
+<header class="sub-panel-header chat-header">
+  <div class="chat-header-top">
+    <button class="btn-back" id="chat-back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      홈
+    </button>
+  </div>
+  <div class="sub-panel-title chat-title">
+    <span class="brand-raion">RAION</span>
+    <span class="brand-master">AI 채팅 어시스턴트</span>
+  </div>
+</header>
+
+<!-- 프로젝트 목록 뷰 -->
+<div class="chat-view" id="chat-project-list-view">
+  <div class="chat-content">
+    <div class="project-list-header">
+      <div class="project-list-header-top">
+        <h3 class="project-list-title">프로젝트</h3>
+        <div class="project-list-header-btns">
+          <button class="btn-add-group" id="btn-add-group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="2" width="14" height="14">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            새 그룹
+          </button>
+          <button class="btn-add-project" id="btn-add-project">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            새 프로젝트
+          </button>
+        </div>
+      </div>
+      <div class="project-list-actions">
+        <button class="btn-icon-action" id="btn-import-url" title="URL에서 가져오기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          <span>URL</span>
+        </button>
+        <button class="btn-icon-action" id="btn-import-projects" title="파일에서 가져오기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>가져오기</span>
+        </button>
+        <button class="btn-icon-action" id="btn-export-projects" title="내보내기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>내보내기</span>
+        </button>
+        <button class="btn-icon-action btn-icon-danger" id="btn-delete-all" title="전체 삭제">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          <span>전체삭제</span>
+        </button>
+      </div>
+    </div>
+    <div class="project-list" id="project-list">
+      <!-- 프로젝트 카드들이 여기에 렌더링됨 -->
+    </div>
+  </div>
+</div>
+
+<!-- 프로젝트 편집 뷰 -->
+<div class="chat-view" id="chat-project-form-view" style="display: none;">
+  <div class="chat-content">
+    <div class="form-header">
+      <button class="btn-back" id="form-back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        프로젝트 목록
+      </button>
+      <h3 class="form-title" id="form-title">새 프로젝트</h3>
+    </div>
+
+    <div class="form-body">
+      <div class="form-field">
+        <label>프로젝트 이름</label>
+        <input type="text" id="project-name" class="form-input" placeholder="예: 번역기, 코딩 도우미">
+      </div>
+
+      <div class="form-field">
+        <label>설명</label>
+        <input type="text" id="project-description" class="form-input" placeholder="간단한 설명">
+      </div>
+
+      <div class="form-field">
+        <label>AI 모델</label>
+        <select id="project-model" class="setting-select">
+          <optgroup label="OpenAI">
+            <option value="GPT-5 Pro">GPT-5 Pro</option>
+            <option value="GPT-5.1 Instant">GPT-5.1 Instant</option>
+            <option value="GPT-5.4">GPT-5.4</option>
+            <option value="GPT-5.2">GPT-5.2</option>
+            <option value="GPT-5.2 Pro">GPT-5.2 Pro</option>
+            <option value="GPT-5.4 Pro">GPT-5.4 Pro</option>
+            <option value="o3-pro">o3-pro</option>
+          </optgroup>
+          <optgroup label="Anthropic">
+            <option value="Claude Sonnet 4.6" selected>Claude Sonnet 4.6</option>
+            <option value="Claude Sonnet 4.5">Claude Sonnet 4.5</option>
+            <option value="Claude Opus 4.6">Claude Opus 4.6</option>
+            <option value="Claude Opus 4.5">Claude Opus 4.5</option>
+            <option value="Claude Haiku 4.5">Claude Haiku 4.5</option>
+          </optgroup>
+          <optgroup label="Google">
+            <option value="Gemini 2.5 Pro">Gemini 2.5 Pro</option>
+            <option value="Gemini 3 Flash Preview">Gemini 3 Flash Preview</option>
+            <option value="Gemini 3.1 Pro Preview">Gemini 3.1 Pro Preview</option>
+            <option value="Gemini 3 Pro Preview">Gemini 3 Pro Preview</option>
+          </optgroup>
+          <optgroup label="xAI">
+            <option value="Grok4 0709">Grok4 0709</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>지침서 (시스템 프롬프트)</label>
+        <textarea id="project-system-prompt" class="form-textarea" placeholder="AI에게 부여할 역할과 규칙을 작성하세요.&#10;&#10;예:&#10;당신은 전문 번역가입니다.&#10;한국어를 영어로, 영어를 한국어로 번역해주세요."></textarea>
+        <div class="form-char-count" id="prompt-char-count">0자</div>
+      </div>
+
+      <div class="form-field">
+        <label>참고 파일</label>
+        <div class="ref-files-container" id="ref-files-container">
+          <div class="ref-files-list" id="ref-files-list"></div>
+          <div class="ref-files-dropzone" id="ref-files-dropzone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span class="dropzone-text">파일을 여기에 끌어다 놓거나 클릭하여 추가</span>
+            <span class="dropzone-hint">텍스트 파일만 가능 · 파일당 100KB · 최대 10개</span>
+          </div>
+          <div class="ref-files-usage-bar" id="ref-files-usage"></div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-save-project" id="btn-save-project">저장</button>
+        <button class="btn-delete-project" id="btn-delete-project" style="display: none;">삭제</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 활성 채팅 뷰 제거됨 - 프로젝트 목록에서 상태 표시 -->

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "id": "default-example",
+      "name": "예시) 번역기",
+      "description": "이런 식으로 프로젝트를 만들어보세요",
+      "systemPrompt": "당신은 전문 번역가입니다.\n\n[역할]\n- 한국어를 영어로, 영어를 한국어로 번역합니다.\n\n[규칙]\n- 번역 결과만 깔끔하게 제공하세요.",
+      "model": "Claude Sonnet 4.6",
+      "isDefault": true
+    }
+  ],
+  "groups": [],
+  "order": ["default-example"]
+}

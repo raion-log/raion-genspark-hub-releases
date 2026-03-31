@@ -1,0 +1,550 @@
+/* ==================== RAION Genspark Hub - 이미지 패널 CSS ==================== */
+
+/* ========== 서브 패널 헤더 ========== */
+.sub-panel-header {
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #111111 100%);
+  border-bottom: 1px solid var(--border-silver);
+  flex-shrink: 0;
+}
+
+.sub-panel-title {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+/* ========== 프롬프트 입력 ========== */
+.prompt-input-section {
+  padding: 12px 0;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-silver);
+  margin-bottom: 10px;
+}
+
+.section-label svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-silver);
+}
+
+.prompt-textarea {
+  width: 100%;
+  min-height: 120px;
+  max-height: 200px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.prompt-textarea:focus {
+  border-color: var(--accent-silver);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+}
+
+.prompt-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.prompt-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(155, 89, 182, 0.1);
+  border: 1px solid rgba(155, 89, 182, 0.3);
+  border-radius: 6px;
+  font-size: 12px;
+  color: #BB8FCE;
+  font-weight: 600;
+}
+
+.hint-icon {
+  font-size: 14px;
+}
+
+/* ========== 배치 미리보기 ========== */
+.batch-preview-section {
+  padding: 12px 0;
+}
+
+.batch-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.batch-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-silver);
+}
+
+.batch-info {
+  font-size: 12px;
+  color: var(--accent-silver-dim);
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.batch-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.batch-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 6px;
+}
+
+.batch-header {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-silver);
+  margin-bottom: 4px;
+}
+
+.batch-prompt-item {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.batch-empty {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  padding: 24px 16px;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+/* ========== 설정 ========== */
+.settings-section {
+  padding: 12px 0;
+}
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.settings-toggle:hover {
+  border-color: var(--accent-silver-dim);
+}
+
+.settings-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.settings-toggle .chevron {
+  position: absolute;
+  right: 14px;
+  transition: transform 0.2s;
+}
+
+.settings-toggle.active .chevron {
+  transform: rotate(180deg);
+}
+
+.settings-content {
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.setting-item {
+  margin-bottom: 16px;
+}
+
+.setting-item label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.number-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.number-control input {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+}
+
+.number-control input:focus {
+  border-color: var(--accent-silver);
+}
+
+.btn-minus, .btn-plus {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-minus:hover, .btn-plus:hover {
+  border-color: var(--accent-silver);
+  color: var(--accent-silver);
+}
+
+/* ========== 진행 상황 큐 ========== */
+.queue-section {
+  padding: 12px 0;
+}
+
+.queue-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-silver);
+  margin-bottom: 10px;
+}
+
+.queue-header svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-silver);
+}
+
+.queue-list {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.queue-item.active {
+  border-color: var(--accent-silver);
+}
+
+.queue-item.completed {
+  opacity: 0.6;
+}
+
+.queue-item-number {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.queue-item.active .queue-item-number {
+  background: var(--accent-silver);
+  color: #000;
+}
+
+.queue-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.queue-item-name {
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.queue-item-status {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.queue-item-progress {
+  height: 2px;
+  background: var(--bg-tertiary);
+  border-radius: 1px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.queue-item-progress-fill {
+  height: 100%;
+  background: var(--accent-silver);
+  border-radius: 1px;
+  transition: width 0.3s;
+}
+
+.queue-empty {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  padding: 24px 16px;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+/* ========== 메인 컨텐츠 스크롤 ========== */
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* ========== 하단 푸터 ========== */
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.status-display {
+  margin-bottom: 10px;
+}
+
+.status-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-start, .btn-stop {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-start {
+  background: linear-gradient(135deg, var(--accent-silver) 0%, var(--accent-silver-hover) 100%);
+  color: #000;
+  box-shadow: 0 2px 10px rgba(168, 85, 247, 0.2);
+}
+
+.btn-start:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-silver-hover) 0%, #EFEFEF 100%);
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+}
+
+.btn-start:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-start svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-stop {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+.btn-stop:hover:not(:disabled) {
+  background: var(--accent-red-hover);
+}
+
+.btn-stop:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btn-stop svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ========== 에러 액션 ========== */
+.error-actions {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.error-action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.error-action-desc {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.btn-retry, .btn-skip, .btn-download {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-retry:hover { border-color: var(--accent-silver); color: var(--accent-silver); }
+.btn-skip:hover { border-color: #ffa500; color: #ffa500; }
+.btn-download:hover { border-color: #4CAF50; color: #4CAF50; }
+
+.btn-retry svg, .btn-skip svg, .btn-download svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ========== Rate Limit 모달 ========== */
+.rate-limit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.rate-limit-modal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rate-limit-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  max-width: 280px;
+}
+
+.rate-limit-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.rate-limit-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.rate-limit-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.rate-limit-progress {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.rate-limit-close {
+  padding: 10px 24px;
+  background: var(--accent-silver);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
