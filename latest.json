@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
-  "changelog": "참고 파일 첨부 기능 추가, 이미지 생성 파일 번호 버그 수정",
-  "download_url": "https://github.com/raion-log/raion-genspark-hub-releases/releases/download/v1.0.2/dist.zip",
-  "released_at": "2026-03-31"
+  "version": "1.0.3",
+  "changelog": "참고 파일 네이티브 첨부 전환",
+  "download_url": "https://github.com/raion-log/raion-genspark-hub-releases/releases/download/v1.0.3/dist.zip",
+  "released_at": "2026-04-01"
 }
