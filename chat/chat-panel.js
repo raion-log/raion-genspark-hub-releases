@@ -37,9 +37,9 @@ window.ChatPanel = (function() {
   async function syncToCloud() {
     try {
       const result = await chrome.storage.local.get([STORAGE_KEY, GROUPS_KEY, ORDER_KEY]);
-      // sync 용량 제한(100KB)으로 referenceFiles 제외
+      // sync 용량 제한(항목당 8KB)으로 referenceFiles, systemPrompt 제외
       const projects = (result[STORAGE_KEY] || []).map(p => {
-        const { referenceFiles, ...rest } = p;
+        const { referenceFiles, systemPrompt, ...rest } = p;
         return rest;
       });
       const data = {
