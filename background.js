@@ -704,11 +704,30 @@ async function handleChatActivateProject(msg) {
       await wait(500);
     }
 
-    // 지침서 전송 (참고 파일 포함)
+    // 참고 파일 첨부 (네이티브 첨부 시도 → 실패 시 텍스트 합성 fallback)
+    const refFiles = msg.project.referenceFiles;
+    let refFilesAttached = false;
+    if (refFiles && refFiles.length > 0) {
+      statusUpdate('injecting', '참고 파일 첨부 중...');
+      try {
+        const attachResult = await sendChatCmd(tabId, 'CHAT_ATTACH_FILES', {
+          files: refFiles.map(f => ({ name: f.name, content: f.content }))
+        });
+        if (attachResult.success) {
+          refFilesAttached = true;
+          console.log('[ChatMgr] 네이티브 첨부 성공:', attachResult.attached);
+        } else {
+          console.log('[ChatMgr] 네이티브 첨부 실패, 텍스트 fallback:', attachResult.error);
+        }
+      } catch (e) {
+        console.log('[ChatMgr] 네이티브 첨부 오류, 텍스트 fallback:', e.message);
+      }
+    }
+
+    // 지침서 전송 (네이티브 첨부 실패 시 참고 파일 텍스트 합성)
     statusUpdate('injecting', '지침서 전송 중...');
     let fullPrompt = msg.project.systemPrompt;
-    const refFiles = msg.project.referenceFiles;
-    if (refFiles && refFiles.length > 0) {
+    if (refFiles && refFiles.length > 0 && !refFilesAttached) {
       fullPrompt += '\n\n========================================\n';
       fullPrompt += '참고 파일 (Reference Files)\n';
       fullPrompt += '========================================\n';

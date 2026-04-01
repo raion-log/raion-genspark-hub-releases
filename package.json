@@ -1,6 +1,6 @@
 {
   "name": "raion-genspark-hub",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "RAION Genspark Hub - AI 채팅 & 이미지 생성 통합 도구",
   "dependencies": {
     "javascript-obfuscator": "^5.3.0"

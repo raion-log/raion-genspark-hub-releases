@@ -210,12 +210,86 @@ async function chatGetLastResponse() {
   return { success: true, text: '[응답을 직접 확인해주세요]' };
 }
 
+// ==================== 파일 첨부 (네이티브) ====================
+async function chatAttachFiles(files) {
+  console.log(`[ChatWorker] 네이티브 파일 첨부: ${files.length}개`);
+  const attached = [];
+
+  for (const fileData of files) {
+    try {
+      // 1. input[type="file"] 감지 준비 (MutationObserver)
+      const inputPromise = new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => { observer.disconnect(); reject(new Error('input[type="file"] 감지 타임아웃')); }, 5000);
+        const observer = new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            for (const node of m.addedNodes) {
+              if (node.nodeType !== 1) continue;
+              const input = node.tagName === 'INPUT' ? node : node.querySelector?.('input[type="file"]');
+              if (input && input.type === 'file') {
+                clearTimeout(timeout);
+                observer.disconnect();
+                // click 가로채기: 다이얼로그 차단
+                input.addEventListener('click', e => e.preventDefault(), { once: true, capture: true });
+                resolve(input);
+                return;
+              }
+            }
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+
+      // 2. 첨부 버튼 클릭 → 메뉴 열기
+      const addBtn = document.querySelector('div.add-entry-btn');
+      if (!addBtn) throw new Error('add-entry-btn 없음');
+      addBtn.click();
+      await wait(500);
+
+      // 3. "로컬 파일 찾기" 메뉴 클릭
+      const menuItems = document.querySelectorAll('div.add-entry-option-item');
+      let localFileItem = null;
+      for (const item of menuItems) {
+        const label = item.querySelector('div.add-entry-option-label');
+        if (label && label.textContent.includes('로컬 파일')) {
+          localFileItem = item;
+          break;
+        }
+      }
+      if (!localFileItem) throw new Error('"로컬 파일 찾기" 메뉴 없음');
+      localFileItem.click();
+
+      // 4. input[type="file"] 감지 대기 → File 객체 주입
+      const input = await inputPromise;
+      const blob = new Blob([fileData.content], { type: 'text/plain' });
+      const file = new File([blob], fileData.name, { type: 'text/plain', lastModified: Date.now() });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+
+      console.log(`[ChatWorker] 첨부 완료: ${fileData.name}`);
+      attached.push(fileData.name);
+      await wait(1000); // UI 반영 대기
+
+    } catch (err) {
+      console.error(`[ChatWorker] 첨부 실패 (${fileData.name}):`, err);
+      // 메뉴가 열려있으면 닫기 (ESC 또는 다른곳 클릭)
+      document.body.click();
+      await wait(300);
+      return { success: false, error: err.message, attached };
+    }
+  }
+
+  return { success: true, attached };
+}
+
 // ==================== 메시지 핸들러 ====================
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   console.log(`[ChatWorker] 수신: ${msg.type}`);
   const handlers = {
     'CHAT_SELECT_MODEL': () => chatSelectModel(msg.model),
     'CHAT_INJECT_PROMPT': () => chatInjectSystemPrompt(msg.systemPrompt),
+    'CHAT_ATTACH_FILES': () => chatAttachFiles(msg.files),
     'CHAT_SEND_MESSAGE': () => chatSendMessage(msg.message),
     'CHAT_WAIT_ACKNOWLEDGMENT': () => chatWaitForAcknowledgment(msg.maxWaitSec || 120),
     'CHAT_WAIT_RESPONSE': () => chatWaitForResponse(msg.maxWaitSec || 120),

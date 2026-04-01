@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "RAION Genspark Hub",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "AI 채팅 & 이미지 생성 워크플로우 통합 도구",
   "permissions": [
     "sidePanel",
