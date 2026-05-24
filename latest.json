@@ -1,6 +1,6 @@
 {
-  "version": "1.0.3",
-  "changelog": "참고 파일 네이티브 첨부, sync 용량 초과 수정",
-  "download_url": "https://github.com/raion-log/raion-genspark-hub-releases/releases/download/v1.0.3/dist.zip",
-  "released_at": "2026-04-01"
+  "version": "1.0.4",
+  "changelog": "auth.js multi-device 인증 패턴 이식 (device_id, 타임아웃, 재시도, transient 보호)",
+  "download_url": "https://github.com/raion-log/raion-genspark-hub-releases/releases/download/v1.0.4/dist.zip",
+  "released_at": "2026-05-24"
 }
