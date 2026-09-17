@@ -1,6 +1,6 @@
 {
-  "version": "1.0.4",
-  "changelog": "auth.js multi-device 인증 패턴 이식 (device_id, 타임아웃, 재시도, transient 보호)",
-  "download_url": "https://github.com/raion-log/raion-genspark-hub-releases/releases/download/v1.0.4/dist.zip",
-  "released_at": "2026-05-24"
+  "version": "1.0.5",
+  "changelog": "라이선스 확인 방식 개선 (인터넷이 정상이면 달라지는 점 없음)",
+  "download_url": "https://github.com/raion-log/raion-genspark-hub-releases/releases/download/v1.0.5/dist.zip",
+  "released_at": "2026-09-17"
 }
